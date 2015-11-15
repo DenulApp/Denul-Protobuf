@@ -1,0 +1,96 @@
+package de.velcommuta.denul.network.c2s;
+// Message types for client<->server communication
+
+// Store data
+message Store {
+	// Key under which the value should be stored
+	required string key = 1;
+
+	// Value that should be stored
+	required bytes value = 2;
+}
+
+
+message StoreReply {
+	enum StoreReplyCode {
+		STORE_OK             = 0; // Success
+		STORE_FAIL_KEY_TAKEN = 1; // Failed, key already has associated value
+		STORE_FAIL_UNKNOWN   = 2; // Failed, unknown reason. Bug?
+	}
+
+	// Opcode to indicate result of Store operation
+	required StoreReplyCode opcode = 1;
+
+	// Key of the Store operation this is referring to
+	required string key = 2;
+}
+
+
+message Get {
+	// Key that should be queried
+	required string key = 1;
+}
+
+
+message GetReply {
+	enum GetReplyCode {
+		GET_OK               = 0; // Success
+		GET_FAIL_UNKNOWN_KEY = 1; // Failed, no such key stored on server
+		GET_FAIL_UNKNOWN     = 2; // Failed, unknown reason. Bug?
+	}
+
+	// Opcode to indicate result of the Get operation
+	required GetReplyCode opcode = 1;
+
+	// Key of the Get operation
+	required string key = 2;
+
+	// Data, if the opcode is GET_OK
+	optional bytes value = 3;
+}
+
+
+message Delete {
+	// Key that should be deleted
+	required string key = 1;
+
+	// Authentication for the deletion
+	required string auth = 2;
+}
+
+
+message DeleteReply{
+	enum DeleteReplyCode {
+		DELETE_OK             = 0; // Success
+		DELETE_FAIL_AUTH      = 1; // Failed, authentication did not match key
+		DELETE_FAIL_NOT_FOUND = 2; // Failed, no such key found on the server
+		DELETE_FAIL_UNKNOWN   = 3; // Failed, unknown reason. Bug?
+	}
+
+	// Opcode to indicate result of the Delete operation
+	required DeleteReplyCode opcode = 1;
+
+	// Key that was deleted (as confirmation)
+	required string key = 2;
+}
+
+
+message ClientHello {
+	// max supported protocol version of the client
+	required string clientProto = 1;
+
+	// Additional data, depending on protocol version
+	// Right now, this is always empty, but we may need it at some point in the future,
+	// for example, if we ever implement some sort of authentication protocol
+	required bytes data = 2;
+}
+
+
+message ServerHello {
+	// max supported protocol version of the server
+	required string serverProto = 1;
+
+	// Additional required data, depending on protocol version
+	// For now, this can only be a serialized VICBF, as per the specifications
+	required bytes data = 2;
+}
