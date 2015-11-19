@@ -14,5 +14,7 @@ message Wrapper {
 	    de.velcommuta.denul.network.c2s.StoreReply   StoreReply = 4;
 	    de.velcommuta.denul.network.c2s.Get                 Get = 5;
 	    de.velcommuta.denul.network.c2s.GetReply       GetReply = 6;
+	    de.velcommuta.denul.network.c2s.Delete           Delete = 7;
+	    de.velcommuta.denul.network.c2s.DeleteReply DeleteReply = 8;
 	}
 }
