@@ -36,8 +36,9 @@ message Get {
 message GetReply {
 	enum GetReplyCode {
 		GET_OK               = 0; // Success
-		GET_FAIL_UNKNOWN_KEY = 1; // Failed, no such key stored on server
-		GET_FAIL_UNKNOWN     = 2; // Failed, unknown reason. Bug?
+		GET_FAIL_KEY_FMT     = 1; // Failed, key misformed
+		GET_FAIL_UNKNOWN_KEY = 2; // Failed, no such key stored on server
+		GET_FAIL_UNKNOWN     = 3; // Failed, unknown reason. Bug?
 	}
 
 	// Opcode to indicate result of the Get operation
@@ -65,7 +66,8 @@ message DeleteReply{
 		DELETE_OK             = 0; // Success
 		DELETE_FAIL_AUTH      = 1; // Failed, authentication did not match key
 		DELETE_FAIL_NOT_FOUND = 2; // Failed, no such key found on the server
-		DELETE_FAIL_UNKNOWN   = 3; // Failed, unknown reason. Bug?
+		DELETE_FAIL_KEY_FMT   = 3; // Failed, key was misformed
+		DELETE_FAIL_UNKNOWN   = 4; // Failed, unknown reason. Bug?
 	}
 
 	// Opcode to indicate result of the Delete operation
