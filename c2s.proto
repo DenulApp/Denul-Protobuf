@@ -15,7 +15,8 @@ message StoreReply {
 	enum StoreReplyCode {
 		STORE_OK             = 0; // Success
 		STORE_FAIL_KEY_TAKEN = 1; // Failed, key already has associated value
-		STORE_FAIL_UNKNOWN   = 2; // Failed, unknown reason. Bug?
+		STORE_FAIL_KEY_FMT   = 2; // Failed, bad key format
+		STORE_FAIL_UNKNOWN   = 3; // Failed, unknown reason. Bug?
 	}
 
 	// Opcode to indicate result of Store operation
@@ -82,15 +83,22 @@ message ClientHello {
 	// Additional data, depending on protocol version
 	// Right now, this is always empty, but we may need it at some point in the future,
 	// for example, if we ever implement some sort of authentication protocol
-	required bytes data = 2;
+	optional bytes data = 2;
 }
 
 
 message ServerHello {
+	enum ClientHelloReplyCode {
+		CLIENT_HELLO_OK                  = 0;
+		CLIENT_HELLO_PROTO_NOT_SUPPORTED = 1;
+	}
+	// Opcode to indicate any errors that may have occured
+	required ClientHelloReplyCode opcode = 1;
+	
 	// max supported protocol version of the server
-	required string serverProto = 1;
+	required string serverProto = 2;
 
 	// Additional required data, depending on protocol version
 	// For now, this can only be a serialized VICBF, as per the specifications
-	required bytes data = 2;
+	required bytes data = 3;
 }
