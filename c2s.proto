@@ -1,4 +1,4 @@
-package de.velcommuta.denul.network.c2s;
+package de.velcommuta.denul.networking.protobuf.c2s;
 // Message types for client<->server communication
 
 // Store data
