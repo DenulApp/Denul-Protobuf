@@ -1,0 +1,32 @@
+package de.velcommuta.denul.data.proto;
+// Messages that wrap data types of individual shareable data types
+
+message Wrapper {
+	oneof shareable {
+		Track track = 1;
+		// TODO Add further types here
+	}
+}
+
+// Track messages contain GPS tracks of runs / cycling
+message Track {
+	// Nested Entry definition for timestamps and Latitude-Longitude pairs
+	message Entry {
+		required int64 timestamp = 1;
+		required double lat = 2;
+		required double lng = 3;
+	}
+
+	// Enum describing the used mode of transportation
+	enum ModeOfTransport {
+		MODE_RUNNING = 0;
+		MODE_CYCLING = 1;
+	}
+
+	// Name of the recorded track
+	required string name = 1;
+	// Mode of transportation
+	required ModeOfTransport mode = 2;
+	// List of Entry's mapping UTC timestamps to LatLng coordinates
+	repeated Entry track = 3;
+}
