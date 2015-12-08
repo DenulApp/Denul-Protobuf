@@ -29,4 +29,8 @@ message Track {
 	required ModeOfTransport mode = 2;
 	// List of Entry's mapping UTC timestamps to LatLng coordinates
 	repeated Entry track = 3;
+	// Timestamp of the beginning of the tracking
+	required int64 timestamp = 4;
+	// String representation of the used timezone
+	required string timezone = 5;
 }
