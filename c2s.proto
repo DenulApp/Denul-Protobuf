@@ -4,7 +4,7 @@ package de.velcommuta.denul.networking.protobuf.c2s;
 // Store data
 message Store {
 	// Key under which the value should be stored
-	required string key = 1;
+	required bytes key = 1;
 
 	// Value that should be stored
 	required bytes value = 2;
@@ -23,13 +23,13 @@ message StoreReply {
 	required StoreReplyCode opcode = 1;
 
 	// Key of the Store operation this is referring to
-	required string key = 2;
+	required bytes key = 2;
 }
 
 
 message Get {
 	// Key that should be queried
-	required string key = 1;
+	required bytes key = 1;
 }
 
 
@@ -45,7 +45,7 @@ message GetReply {
 	required GetReplyCode opcode = 1;
 
 	// Key of the Get operation
-	required string key = 2;
+	required bytes key = 2;
 
 	// Data, if the opcode is GET_OK
 	optional bytes value = 3;
@@ -54,10 +54,10 @@ message GetReply {
 
 message Delete {
 	// Key that should be deleted
-	required string key = 1;
+	required bytes key = 1;
 
 	// Authentication for the deletion
-	required string auth = 2;
+	required bytes auth = 2;
 }
 
 
@@ -74,7 +74,7 @@ message DeleteReply{
 	required DeleteReplyCode opcode = 1;
 
 	// Key that was deleted (as confirmation)
-	required string key = 2;
+	required bytes key = 2;
 }
 
 
