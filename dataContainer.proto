@@ -6,6 +6,10 @@ message Wrapper {
 		Track track = 1;
 		// TODO Add further types here
 	}
+
+	// A comment about the shareable, entered by the user and displayed in
+	// the social stream of the recipients
+	optional string comment = 2;
 }
 
 // Track messages contain GPS tracks of runs / cycling
@@ -29,8 +33,11 @@ message Track {
 	required ModeOfTransport mode = 2;
 	// List of Entry's mapping UTC timestamps to LatLng coordinates
 	repeated Entry track = 3;
-	// Timestamp of the beginning of the tracking
-	required int64 timestamp = 4;
+	// Timestamp of the beginning and the end of the tracking
+	required int64 timestamp_start = 4;
+	required int64 timestamp_end   = 5;
 	// String representation of the used timezone
-	required string timezone = 5;
+	required string timezone = 6;
+	// Distance run, in meters
+	required int32 distance = 7;
 }
