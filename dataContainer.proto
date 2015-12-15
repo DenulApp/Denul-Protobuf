@@ -6,10 +6,6 @@ message Wrapper {
 		Track track = 1;
 		// TODO Add further types here
 	}
-
-	// A comment about the shareable, entered by the user and displayed in
-	// the social stream of the recipients
-	optional string comment = 2;
 }
 
 // Track messages contain GPS tracks of runs / cycling
@@ -39,5 +35,7 @@ message Track {
 	// String representation of the used timezone
 	required string timezone = 6;
 	// Distance run, in meters
-	required int32 distance = 7;
+	required float distance = 7;
+	// Description (to be displayed in the social stream, optional)
+	optional string description = 8;
 }
