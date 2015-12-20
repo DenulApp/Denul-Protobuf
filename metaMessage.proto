@@ -1,5 +1,6 @@
 package de.velcommuta.denul.networking.protobuf.meta;
 import "c2s.proto";
+import "studyMessage.proto";
 // Meta message types (used for both c2s and c2c)
 
 // Wrapper Message
@@ -16,5 +17,6 @@ message Wrapper {
 	    de.velcommuta.denul.networking.protobuf.c2s.GetReply       GetReply = 6;
 	    de.velcommuta.denul.networking.protobuf.c2s.Delete           Delete = 7;
 	    de.velcommuta.denul.networking.protobuf.c2s.DeleteReply DeleteReply = 8;
+	    de.velcommuta.denul.networking.protobuf.study.StudyWrapper StudyWrapper = 9;
 	}
 }

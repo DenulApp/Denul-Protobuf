@@ -1,0 +1,98 @@
+package de.velcommuta.denul.networking.protobuf.study;
+// Message types for communicating study requests and responses
+
+// Wrapper message to contain a serialized Study message and a signature
+// over the serialized bytes
+message StudyWrapper {
+	// The serialized Study message
+	required bytes message = 1;
+	// The byte-representation of the signature
+	required bytes signature = 2;
+}
+
+// Message type to contain metadata about a study
+message Study {
+	enum DataType {
+		DATA_UNKNOWN = 0;
+		DATA_GPS_TRACK = 1;
+		DATA_STEP_COUNT = 2;
+	}
+
+	enum DataGranularity {
+		GRAN_FINE = 0;
+		GRAN_COARSE = 1;
+		GRAN_VERY_COARSE = 2;
+	}
+
+	enum KexAlgo {
+		KEX_UNKNOWN = 0;
+		KEX_ECDH_CURVE25519 = 1;
+	}
+
+	enum PubkeyAlgo {
+		PK_UNKNOWN = 0;
+		PK_RSA = 1;
+	}
+
+	enum VerificationStrategy {
+		VF_UNKNOWN = 0;
+		VF_DNS_TXT = 1;
+		VF_FILE = 2;
+		VF_META = 3;
+	}
+
+	// Submessage to encapsulate the information about the investigator
+	// conducting the study
+	message Investigator {
+		// Investigator name
+		required string name = 1;
+		// Institution (University, ...)
+		required string institution = 2;
+		// Group within University
+		required string group = 3;
+		// Position in group
+		required string position = 4;
+	}
+
+	message DataRequest {
+		required DataType datatype = 1;
+		required DataGranularity granularity = 2;
+		// Frequency of reporting, in hours
+		required int32 frequency = 3;
+	}
+	// Study information
+	required string study_name = 1;
+	required string institution = 2;
+	required string webpage = 3;
+	required string description = 4;
+	required string purpose = 5;
+	required string procedures = 6;
+	required string risks = 7;
+	required string benefits = 8;
+	required string payment = 9;
+	required string conflicts = 10;
+	required string confidentiality = 11;
+	required string participationAndWithdrawal = 12;
+	required string rights = 13;
+	repeated Investigator investigators = 14;
+	repeated DataRequest dataRequest = 15;
+	required bytes publicKey = 16;
+	required PubkeyAlgo publicKeyAlgo = 17;
+	required VerificationStrategy verificationStrategy = 18;
+	optional string verificationData = 19;
+	required bytes kexData = 20;
+	required KexAlgo kexAlgorithm = 21;
+	required bytes queueIdentifier = 22;
+}
+
+// Message to announce joining of a study. Will be serialized,
+// encrypted with the public key, and used in a regular PUT message
+message StudyJoin {
+	enum KexAlgo {
+		KEX_UNKNOWN = 0;
+		KEX_ECDH_CURVE25519 = 1;
+	}
+
+	required bytes kexData = 1;
+	required KexAlgo kexAlgorithm = 2;
+}
