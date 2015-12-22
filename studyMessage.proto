@@ -2,16 +2,24 @@ package de.velcommuta.denul.networking.protobuf.study;
 // Message types for communicating study requests and responses
 
 // Wrapper message to contain a serialized Study message and a signature
-// over the serialized bytes
+// over the serialized bytes. Used to transmit StudyCreate, StudyJoinQuery
+// and StudyDelete messages
 message StudyWrapper {
+	enum MessageType {
+		MSG_UNKNOWN = 0;
+		MSG_STUDYCREATE = 1;
+		MSG_STUDYJOINQUERY = 2;
+		MSG_STUDYDELETE = 3;
+	}
+	required MessageType type = 1;
 	// The serialized Study message
-	required bytes message = 1;
+	required bytes message = 2;
 	// The byte-representation of the signature
-	required bytes signature = 2;
+	required bytes signature = 3;
 }
 
 // Message type to contain metadata about a study
-message Study {
+message StudyCreate {
 	enum DataType {
 		DATA_UNKNOWN = 0;
 		DATA_GPS_TRACK = 1;
@@ -85,6 +93,27 @@ message Study {
 	required bytes queueIdentifier = 22;
 }
 
+message StudyCreateReply {
+	enum CreateStatus {
+		CREATE_UNKNOWN = 0;
+		CREATE_OK = 1;
+		CREATE_FAIL_SIGNATURE = 2;
+		CREATE_FAIL_IDENTIFIER = 3;
+		CREATE_FAIL_VERIFICATION = 4;
+	}
+
+	required bytes queueIdentifier = 1;
+	required CreateStatus status = 2;
+}
+
+message StudyIdentifierRequest {
+	// Empty? Nothing much we need here
+}
+
+message StudyIdentifierReply {
+	required bytes queueIdentifier = 1;
+}
+
 // Message to announce joining of a study. Will be serialized,
 // encrypted with the public key, and used in a regular PUT message
 message StudyJoin {
@@ -93,6 +122,45 @@ message StudyJoin {
 		KEX_ECDH_CURVE25519 = 1;
 	}
 
-	required bytes kexData = 1;
-	required KexAlgo kexAlgorithm = 2;
+	required bytes queueIdentifier = 1; // Not for use by the server, but for the research client (this stuff is encrypted)
+	required bytes kexData = 2;
+	required KexAlgo kexAlgorithm = 3;
+}
+
+// Query message to ask the server for new StudyJoin messages saved
+// under the queueIdentifier. MUST be wrapped in a StudyWrapper and
+// signed using the study's private key
+// TODO Nonce? Replay protection of some sort? Is this even needed?
+message StudyJoinQuery {
+	required bytes queueIdentifier = 1;
+}
+
+// Reply by the server to indicate the result of the StudyJoinQuery
+message StudyJoinQueryReply {
+	enum QueryStatus {
+		STATUS_UNKNOWN = 0;
+		STATUS_OK = 1;
+		STATUS_FAIL_NOT_FOUND = 2;
+		STATUS_FAIL_SIGNATURE = 3;
+	}
+
+	required QueryStatus status = 1;
+	repeated bytes message = 2;
+}
+
+// Request to delete a study from the server. MUST be wrapped in a
+// StudyWrapper and signed, or the server will reject it
+message StudyDelete {
+	required bytes queueIdentifier = 1;
+}
+
+message StudyDeleteReply {
+	enum DeleteStatus {
+		DELETE_UNKNOWN = 0;
+		DELETE_OK = 1;
+		DELETE_FAIL_BAD_IDENT = 2;
+		DELETE_FAIL_BAD_SIG = 3;
+	}
+
+	required DeleteStatus status = 1;
 }

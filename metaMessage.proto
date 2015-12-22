@@ -9,14 +9,17 @@ import "studyMessage.proto";
 // expect one message type coming from the network
 message Wrapper {
 	oneof message {
-	    de.velcommuta.denul.networking.protobuf.c2s.ClientHello ClientHello = 1;
-	    de.velcommuta.denul.networking.protobuf.c2s.ServerHello ServerHello = 2;
-	    de.velcommuta.denul.networking.protobuf.c2s.Store             Store = 3;
-	    de.velcommuta.denul.networking.protobuf.c2s.StoreReply   StoreReply = 4;
-	    de.velcommuta.denul.networking.protobuf.c2s.Get                 Get = 5;
-	    de.velcommuta.denul.networking.protobuf.c2s.GetReply       GetReply = 6;
-	    de.velcommuta.denul.networking.protobuf.c2s.Delete           Delete = 7;
-	    de.velcommuta.denul.networking.protobuf.c2s.DeleteReply DeleteReply = 8;
-	    de.velcommuta.denul.networking.protobuf.study.StudyWrapper StudyWrapper = 9;
+	    de.velcommuta.denul.networking.protobuf.c2s.ClientHello                   ClientHello = 1;
+	    de.velcommuta.denul.networking.protobuf.c2s.ServerHello                   ServerHello = 2;
+	    de.velcommuta.denul.networking.protobuf.c2s.Store                               Store = 3;
+	    de.velcommuta.denul.networking.protobuf.c2s.StoreReply                     StoreReply = 4;
+	    de.velcommuta.denul.networking.protobuf.c2s.Get                                   Get = 5;
+	    de.velcommuta.denul.networking.protobuf.c2s.GetReply                         GetReply = 6;
+	    de.velcommuta.denul.networking.protobuf.c2s.Delete                             Delete = 7;
+	    de.velcommuta.denul.networking.protobuf.c2s.DeleteReply                   DeleteReply = 8;
+	    de.velcommuta.denul.networking.protobuf.study.StudyWrapper               StudyWrapper = 9;
+	    de.velcommuta.denul.networking.protobuf.study.StudyCreateReply       StudyCreatereply = 10;
+	    de.velcommuta.denul.networking.protobuf.study.StudyJoinQueryReply StudyJoinQueryReply = 13;
+	    de.velcommuta.denul.networking.protobuf.study.StudyDeleteReply       StudyDeleteReply = 14;
 	}
 }
