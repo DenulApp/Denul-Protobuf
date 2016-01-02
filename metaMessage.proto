@@ -18,7 +18,7 @@ message Wrapper {
 	    de.velcommuta.denul.networking.protobuf.c2s.Delete                             Delete = 7;
 	    de.velcommuta.denul.networking.protobuf.c2s.DeleteReply                   DeleteReply = 8;
 	    de.velcommuta.denul.networking.protobuf.study.StudyWrapper               StudyWrapper = 9;
-	    de.velcommuta.denul.networking.protobuf.study.StudyCreateReply       StudyCreatereply = 10;
+	    de.velcommuta.denul.networking.protobuf.study.StudyCreateReply       StudyCreateReply = 10;
 	    de.velcommuta.denul.networking.protobuf.study.StudyJoinQueryReply StudyJoinQueryReply = 13;
 	    de.velcommuta.denul.networking.protobuf.study.StudyDeleteReply       StudyDeleteReply = 14;
 	}
