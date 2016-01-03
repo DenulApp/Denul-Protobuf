@@ -21,5 +21,7 @@ message Wrapper {
 	    de.velcommuta.denul.networking.protobuf.study.StudyCreateReply       StudyCreateReply = 10;
 	    de.velcommuta.denul.networking.protobuf.study.StudyJoinQueryReply StudyJoinQueryReply = 13;
 	    de.velcommuta.denul.networking.protobuf.study.StudyDeleteReply       StudyDeleteReply = 14;
+	    de.velcommuta.denul.networking.protobuf.study.StudyListQuery           StudyListQuery = 15;
+	    de.velcommuta.denul.networking.protobuf.study.StudyListReply           StudyListReply = 16;
 	}
 }

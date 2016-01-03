@@ -114,6 +114,17 @@ message StudyIdentifierReply {
 	required bytes queueIdentifier = 1;
 }
 
+// Message to query the server for available studies
+message StudyListQuery {
+	// Don't really need anything in this message
+}
+
+// Message containing a list of StudyWrappers containing StudyCreate messages
+// (We need the wrappers as they contain the signatures)
+message StudyListReply {
+	repeated StudyWrapper studylist = 1;
+}
+
 // Message to announce joining of a study. Will be serialized,
 // encrypted with the public key, and used in a regular PUT message
 message StudyJoin {
