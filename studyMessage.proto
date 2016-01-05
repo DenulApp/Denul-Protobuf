@@ -98,20 +98,13 @@ message StudyCreateReply {
 		CREATE_UNKNOWN = 0;
 		CREATE_OK = 1;
 		CREATE_FAIL_SIGNATURE = 2;
-		CREATE_FAIL_IDENTIFIER = 3;
-		CREATE_FAIL_VERIFICATION = 4;
+		CREATE_FAIL_BAD_IDENTIFIER = 3;
+		CREATE_FAIL_IDENTIFIER_TAKEN = 4;
+		CREATE_FAIL_VERIFICATION = 5;
 	}
 
 	required bytes queueIdentifier = 1;
 	required CreateStatus status = 2;
-}
-
-message StudyIdentifierRequest {
-	// Empty? Nothing much we need here
-}
-
-message StudyIdentifierReply {
-	required bytes queueIdentifier = 1;
 }
 
 // Message to query the server for available studies
@@ -156,7 +149,7 @@ message StudyJoinQueryReply {
 	}
 
 	required QueryStatus status = 1;
-	repeated bytes message = 2;
+	repeated bytes message = 2;  // Contains StudyJoin messages encrypted w/ pubkey
 }
 
 // Request to delete a study from the server. MUST be wrapped in a
